@@ -122,6 +122,7 @@ static char * _userVCArray = "_userVCArray";
         NSUInteger index = [weak_self.userVCArray count] - 2;
         UIViewController * vc = [weak_self.userVCArray objectAtIndex:index];//-1最后一个，-2倒数第二个
         vc.open = nil;
+        NSLog(@"\n%@---走了====%.2f",vc.title,[vc.alphaString floatValue]);
         [[weak_self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(vc.keyContent)];
         
         if ([vc.dismisType isEqualToString:@"pop"]) {
@@ -155,7 +156,7 @@ static char * _userVCArray = "_userVCArray";
         //如果以前就有alpha值
         UIViewController *vc = (UIViewController*)[weak_self.userVCArray lastObject];
         if (vc.alphaString) {
-            NSLog(@"\n回来了====%.2f",[vc.alphaString floatValue]);
+            NSLog(@"\n%@---回来了====%.2f",vc.title,[vc.alphaString floatValue]);
             alphaView.alpha = [vc.alphaString floatValue];
         }
         else{
@@ -164,6 +165,11 @@ static char * _userVCArray = "_userVCArray";
         }
         
         vc.open = @"open";
+    };
+    
+    __block UIViewController*vc = currentViewControl;
+    currentViewControl.viewWillDisApperBlock = ^{
+        vc.open = nil;
     };
 
 }
@@ -198,6 +204,8 @@ static char * _userVCArray = "_userVCArray";
                 //记录 alpha值
                 //有才设置，没有说明是第一次进来，第一次进来先去firstLoadAnimation 报道
                 currentVC.alphaString = [NSString stringWithFormat:@"%.2f",1.0/alphaDistance * spaceY];
+                
+                NSLog(@"\n%@---在变化====%.2f",currentVC.title,[currentVC.alphaString floatValue]);
             }
             else{
                 if (currentVC.alphaString) {

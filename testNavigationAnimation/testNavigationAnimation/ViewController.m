@@ -36,6 +36,9 @@
    // [self.testTableView reloadData];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //开启渐变效果
@@ -78,6 +81,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
+    cell.textLabel.text = @"点击进入下一个测试页面";
     return cell;
 }
 

@@ -15,14 +15,14 @@
 		3ED682B51DE99C5B0014920E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ED682B31DE99C5B0014920E /* LaunchScreen.storyboard */; };
 		3ED682C01DE99C5B0014920E /* testNavigationAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682BF1DE99C5B0014920E /* testNavigationAnimationTests.m */; };
 		3ED682CB1DE99C5B0014920E /* testNavigationAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682CA1DE99C5B0014920E /* testNavigationAnimationUITests.m */; };
-		3ED682E31DE99C680014920E /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682DA1DE99C680014920E /* BaseNavigationController.m */; };
-		3ED682E41DE99C680014920E /* hLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682DB1DE99C680014920E /* hLayout.swift */; };
-		3ED682E51DE99C680014920E /* tran@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED682DC1DE99C680014920E /* tran@2x.png */; };
-		3ED682E61DE99C680014920E /* UINavigationBar+hiddnBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682DE1DE99C680014920E /* UINavigationBar+hiddnBar.m */; };
-		3ED682E71DE99C680014920E /* UINavigationController+AlphaAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682E01DE99C680014920E /* UINavigationController+AlphaAnimation.m */; };
-		3ED682E81DE99C680014920E /* UIViewController+removeObsever.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682E21DE99C680014920E /* UIViewController+removeObsever.m */; };
 		3ED682EE1DE9A66B0014920E /* nextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682ED1DE9A66B0014920E /* nextViewController.m */; };
 		3ED682F11DEA0A560014920E /* nextViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682F01DEA0A560014920E /* nextViewController2.m */; };
+		3ED682FE1DEA0E5C0014920E /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682F41DEA0E5C0014920E /* BaseNavigationController.m */; };
+		3ED682FF1DEA0E5C0014920E /* hLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682F51DEA0E5C0014920E /* hLayout.swift */; };
+		3ED683001DEA0E5C0014920E /* tran@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED682F71DEA0E5C0014920E /* tran@2x.png */; };
+		3ED683011DEA0E5C0014920E /* UINavigationBar+hiddnBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682F91DEA0E5C0014920E /* UINavigationBar+hiddnBar.m */; };
+		3ED683021DEA0E5C0014920E /* UINavigationController+AlphaAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682FB1DEA0E5C0014920E /* UINavigationController+AlphaAnimation.m */; };
+		3ED683031DEA0E5C0014920E /* UIViewController+removeObsever.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED682FD1DEA0E5C0014920E /* UIViewController+removeObsever.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,21 +59,21 @@
 		3ED682C61DE99C5B0014920E /* testNavigationAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testNavigationAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED682CA1DE99C5B0014920E /* testNavigationAnimationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testNavigationAnimationUITests.m; sourceTree = "<group>"; };
 		3ED682CC1DE99C5B0014920E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3ED682D91DE99C680014920E /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
-		3ED682DA1DE99C680014920E /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
-		3ED682DB1DE99C680014920E /* hLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hLayout.swift; sourceTree = "<group>"; };
-		3ED682DC1DE99C680014920E /* tran@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tran@2x.png"; sourceTree = "<group>"; };
-		3ED682DD1DE99C680014920E /* UINavigationBar+hiddnBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+hiddnBar.h"; sourceTree = "<group>"; };
-		3ED682DE1DE99C680014920E /* UINavigationBar+hiddnBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+hiddnBar.m"; sourceTree = "<group>"; };
-		3ED682DF1DE99C680014920E /* UINavigationController+AlphaAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+AlphaAnimation.h"; sourceTree = "<group>"; };
-		3ED682E01DE99C680014920E /* UINavigationController+AlphaAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+AlphaAnimation.m"; sourceTree = "<group>"; };
-		3ED682E11DE99C680014920E /* UIViewController+removeObsever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+removeObsever.h"; sourceTree = "<group>"; };
-		3ED682E21DE99C680014920E /* UIViewController+removeObsever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+removeObsever.m"; sourceTree = "<group>"; };
-		3ED682EB1DE9A1960014920E /* navigationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = navigationAnimation.h; sourceTree = "<group>"; };
 		3ED682EC1DE9A66B0014920E /* nextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nextViewController.h; sourceTree = "<group>"; };
 		3ED682ED1DE9A66B0014920E /* nextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nextViewController.m; sourceTree = "<group>"; };
 		3ED682EF1DEA0A560014920E /* nextViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nextViewController2.h; sourceTree = "<group>"; };
 		3ED682F01DEA0A560014920E /* nextViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nextViewController2.m; sourceTree = "<group>"; };
+		3ED682F31DEA0E5C0014920E /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		3ED682F41DEA0E5C0014920E /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		3ED682F51DEA0E5C0014920E /* hLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hLayout.swift; sourceTree = "<group>"; };
+		3ED682F61DEA0E5C0014920E /* navigationAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = navigationAnimation.h; sourceTree = "<group>"; };
+		3ED682F71DEA0E5C0014920E /* tran@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tran@2x.png"; sourceTree = "<group>"; };
+		3ED682F81DEA0E5C0014920E /* UINavigationBar+hiddnBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+hiddnBar.h"; sourceTree = "<group>"; };
+		3ED682F91DEA0E5C0014920E /* UINavigationBar+hiddnBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+hiddnBar.m"; sourceTree = "<group>"; };
+		3ED682FA1DEA0E5C0014920E /* UINavigationController+AlphaAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+AlphaAnimation.h"; sourceTree = "<group>"; };
+		3ED682FB1DEA0E5C0014920E /* UINavigationController+AlphaAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+AlphaAnimation.m"; sourceTree = "<group>"; };
+		3ED682FC1DEA0E5C0014920E /* UIViewController+removeObsever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+removeObsever.h"; sourceTree = "<group>"; };
+		3ED682FD1DEA0E5C0014920E /* UIViewController+removeObsever.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+removeObsever.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 		3ED682991DE99C5B0014920E = {
 			isa = PBXGroup;
 			children = (
-				3ED682D81DE99C680014920E /* 一个方法开始导航栏渐变 */,
+				3ED682F21DEA0E5C0014920E /* hAlphaNavigationClass */,
 				3ED682A41DE99C5B0014920E /* testNavigationAnimation */,
 				3ED682BE1DE99C5B0014920E /* testNavigationAnimationTests */,
 				3ED682C91DE99C5B0014920E /* testNavigationAnimationUITests */,
@@ -168,22 +168,22 @@
 			path = testNavigationAnimationUITests;
 			sourceTree = "<group>";
 		};
-		3ED682D81DE99C680014920E /* 一个方法开始导航栏渐变 */ = {
+		3ED682F21DEA0E5C0014920E /* hAlphaNavigationClass */ = {
 			isa = PBXGroup;
 			children = (
-				3ED682D91DE99C680014920E /* BaseNavigationController.h */,
-				3ED682DA1DE99C680014920E /* BaseNavigationController.m */,
-				3ED682DB1DE99C680014920E /* hLayout.swift */,
-				3ED682DC1DE99C680014920E /* tran@2x.png */,
-				3ED682DD1DE99C680014920E /* UINavigationBar+hiddnBar.h */,
-				3ED682DE1DE99C680014920E /* UINavigationBar+hiddnBar.m */,
-				3ED682DF1DE99C680014920E /* UINavigationController+AlphaAnimation.h */,
-				3ED682E01DE99C680014920E /* UINavigationController+AlphaAnimation.m */,
-				3ED682E11DE99C680014920E /* UIViewController+removeObsever.h */,
-				3ED682E21DE99C680014920E /* UIViewController+removeObsever.m */,
-				3ED682EB1DE9A1960014920E /* navigationAnimation.h */,
+				3ED682F31DEA0E5C0014920E /* BaseNavigationController.h */,
+				3ED682F41DEA0E5C0014920E /* BaseNavigationController.m */,
+				3ED682F51DEA0E5C0014920E /* hLayout.swift */,
+				3ED682F61DEA0E5C0014920E /* navigationAnimation.h */,
+				3ED682F71DEA0E5C0014920E /* tran@2x.png */,
+				3ED682F81DEA0E5C0014920E /* UINavigationBar+hiddnBar.h */,
+				3ED682F91DEA0E5C0014920E /* UINavigationBar+hiddnBar.m */,
+				3ED682FA1DEA0E5C0014920E /* UINavigationController+AlphaAnimation.h */,
+				3ED682FB1DEA0E5C0014920E /* UINavigationController+AlphaAnimation.m */,
+				3ED682FC1DEA0E5C0014920E /* UIViewController+removeObsever.h */,
+				3ED682FD1DEA0E5C0014920E /* UIViewController+removeObsever.m */,
 			);
-			path = "一个方法开始导航栏渐变";
+			path = hAlphaNavigationClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,7 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ED682B51DE99C5B0014920E /* LaunchScreen.storyboard in Resources */,
-				3ED682E51DE99C680014920E /* tran@2x.png in Resources */,
+				3ED683001DEA0E5C0014920E /* tran@2x.png in Resources */,
 				3ED682B21DE99C5B0014920E /* Assets.xcassets in Resources */,
 				3ED682B01DE99C5B0014920E /* Main.storyboard in Resources */,
 			);
@@ -320,16 +320,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED682E31DE99C680014920E /* BaseNavigationController.m in Sources */,
-				3ED682E61DE99C680014920E /* UINavigationBar+hiddnBar.m in Sources */,
+				3ED683031DEA0E5C0014920E /* UIViewController+removeObsever.m in Sources */,
 				3ED682F11DEA0A560014920E /* nextViewController2.m in Sources */,
 				3ED682AD1DE99C5B0014920E /* ViewController.m in Sources */,
+				3ED682FE1DEA0E5C0014920E /* BaseNavigationController.m in Sources */,
 				3ED682EE1DE9A66B0014920E /* nextViewController.m in Sources */,
-				3ED682E71DE99C680014920E /* UINavigationController+AlphaAnimation.m in Sources */,
 				3ED682AA1DE99C5B0014920E /* AppDelegate.m in Sources */,
-				3ED682E41DE99C680014920E /* hLayout.swift in Sources */,
-				3ED682E81DE99C680014920E /* UIViewController+removeObsever.m in Sources */,
+				3ED683021DEA0E5C0014920E /* UINavigationController+AlphaAnimation.m in Sources */,
 				3ED682A71DE99C5B0014920E /* main.m in Sources */,
+				3ED682FF1DEA0E5C0014920E /* hLayout.swift in Sources */,
+				3ED683011DEA0E5C0014920E /* UINavigationBar+hiddnBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

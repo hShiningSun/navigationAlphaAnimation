@@ -15,6 +15,7 @@
 static char *_viewDidDisApperBlock = "_viewDidDisApperBlock";
 static char *_viewWillApperBlock = "_viewWillApperBlock";
 static char *_viewDidApperBlock = "_viewDidApperBlock";
+static char *_viewWillDisApperBlock = "_viewWillDisApperBlock";
 
 static char *_originalYString = "_originalYString";
 static char *_alphaString  = "_alphaString";
@@ -165,8 +166,44 @@ static char *_keyContent = "_keyContent";
         }
 
         
+        // 选择器
+        SEL originalSEL5 = @selector(viewWillDisappear:);
+        SEL SwizzledSEL5 = @selector(hViewWillDisappear:);
+        
+        // 方法
+        Method originalMethod5 = class_getInstanceMethod(class, originalSEL5);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
+        Method SwizzledMethod5 = class_getInstanceMethod(class, SwizzledSEL5);//class_getClassMethod(class, SwizzledSEL);
+        
+        // 方法的实现
+        IMP originalIMP5 = method_getImplementation(originalMethod5);//class_getMethodImplementation(class, originalSEL);
+        IMP SwizzledIMP5 = method_getImplementation(SwizzledMethod5);//class_getMethodImplementation(class, SwizzledSEL);
+        
+        
+        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
+        BOOL isSuccess5 = class_addMethod(class, originalSEL5, SwizzledIMP5, method_getTypeEncoding(SwizzledMethod5));
+        
+        if (isSuccess5) {
+            // 初始指向目标，那么把目标的内容指向初始
+            class_replaceMethod(class, SwizzledSEL5, originalIMP5, method_getTypeEncoding(originalMethod5));
+        }
+        else{
+            // 没有添加成功说明已经存在，就交换
+            // 注意，这里交换的是IMP 实现
+            method_exchangeImplementations(originalMethod5, SwizzledMethod5);
+        }
+
+        
     });
 }
+
+- (void)hViewWillDisappear:(BOOL)animated{
+    [self hViewWillDisappear:animated];
+    if (self.viewWillDisApperBlock) {
+        self.viewWillDisApperBlock();
+        self.viewWillDisApperBlock = nil;
+    }
+}
+
 
 - (void)hDismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
     self.dismisType = @"pop";
@@ -202,6 +239,18 @@ static char *_keyContent = "_keyContent";
     [self hViewDidDisappear:animated];
 
 }
+
+
+
+- (viewWillDisApperBlock)viewWillDisApperBlock{
+    return objc_getAssociatedObject(self, _viewWillDisApperBlock);
+}
+
+
+- (void)setViewWillDisApperBlock:(viewWillDisApperBlock)viewWillDisApperBlock{
+    objc_setAssociatedObject(self, _viewWillDisApperBlock, viewWillDisApperBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 
 - (viewWillApperBlock)viewWillApperBlock{
     return  objc_getAssociatedObject(self, _viewWillApperBlock);

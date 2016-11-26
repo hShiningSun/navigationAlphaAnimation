@@ -72,6 +72,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
+    cell.textLabel.text = @"点击进入下一个测试页面";
     cell.backgroundColor = [UIColor darkGrayColor];
     return cell;
 }

@@ -11,6 +11,7 @@
 typedef void(^viewDidDisApperBlock)();
 typedef void(^viewWillApperBlock)();
 typedef void(^viewDidApperBlock)();
+typedef void(^viewWillDisApperBlock)();
 @interface UIViewController (removeObsever)
 
 /**
@@ -33,6 +34,12 @@ typedef void(^viewDidApperBlock)();
  */
 
 @property (nonatomic, copy) viewDidApperBlock viewDidApperBlock;
+
+/**
+ *
+ *
+ */
+@property (nonatomic,strong) viewWillDisApperBlock viewWillDisApperBlock;
 
 //滑动的初始值
 @property (nonatomic, strong) NSString *originalYString;
