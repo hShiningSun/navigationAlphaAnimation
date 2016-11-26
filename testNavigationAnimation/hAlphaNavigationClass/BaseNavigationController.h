@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "testNavigationAnimation-swift.h"
+
 
 @interface BaseNavigationController : UINavigationController<UINavigationControllerDelegate>
 

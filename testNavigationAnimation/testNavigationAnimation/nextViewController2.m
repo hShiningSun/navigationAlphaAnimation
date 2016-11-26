@@ -7,7 +7,6 @@
 //
 
 #import "nextViewController2.h"
-#import "testNavigationAnimation-swift.h"       //项目中OC对Swift引用
 #import "navigationAnimation.h"
 
 

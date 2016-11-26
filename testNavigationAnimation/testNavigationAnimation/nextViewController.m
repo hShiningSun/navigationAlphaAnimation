@@ -8,9 +8,7 @@
 
 #import "nextViewController.h"
 
-#import "testNavigationAnimation-swift.h"       //项目中OC对Swift引用
 #import "navigationAnimation.h"
-
 #import "nextViewController2.h"
 
 @interface nextViewController ()<UITableViewDelegate,UITableViewDataSource>

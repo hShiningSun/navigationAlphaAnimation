@@ -9,7 +9,6 @@
 #import "BaseNavigationController.h"
 
 #import "UINavigationBar+hiddnBar.h"
-#import "testNavigationAnimation-swift.h"//导入你自己的工程就需要吧前缀改成你项目的名字
 
 @interface BaseNavigationController ()
 
@@ -55,19 +54,16 @@
     
     //设计需要渐变效果怎么办，原生的你要设置alpha item也alpha了，所以在原生的下面加一个可以控制的透明VIew
     //原生的导航栏坐标 (0,0,屏幕宽,64)  插入到原生的下面去，原生清空了的，还可以看到下面的那个它
-    self.alphaView = [[UIView alloc]init];
+    self.alphaView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 64)];
     [self.alphaView setBackgroundColor:[UIColor whiteColor]];
     [self.alphaView setAlpha:1];//默认不透明
     [self.view insertSubview:self.alphaView belowSubview:self.navigationBar];
-    [self.alphaView addhLayoutWithTopConstant:0 left:0 bottom:999 right:0 toView:self.view];//999设定无效的值
-    [self.alphaView addhLayoutheight:64];
     
     
     //原生的分割线没有属性可以更改位置 裁减掉后需要重新设置一个
-    UIView *lineView = [[UIView alloc]init];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 63.5, [[UIScreen mainScreen]bounds].size.width, 0.5)];
     [lineView setBackgroundColor:[UIColor colorWithRed:223/255.0 green:223/255.0 blue:223/255.0 alpha:1]];//设置你需要的颜色
     [self.alphaView addSubview:lineView];
-    [lineView addhLayoutWithTopConstant:63.5 left:0 bottom:0 right:0 toView:self.alphaView];
     
     self.navigationBar.handleWenSetHiddn = ^(BOOL hiddn){
         [self setAlphaBarHiddn:hiddn];
