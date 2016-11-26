@@ -27,62 +27,47 @@ static char * _userVCArray = "_userVCArray";
         // 选择器
         SEL originalSEL = @selector(pushViewController:animated:);
         SEL SwizzledSEL = @selector(hPushViewController:animated:);
-        
-        // 方法
-        Method originalMethod = class_getInstanceMethod(class, originalSEL);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod = class_getInstanceMethod(class, SwizzledSEL);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP = method_getImplementation(originalMethod);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP = method_getImplementation(SwizzledMethod);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess = class_addMethod(class, originalSEL, SwizzledIMP, method_getTypeEncoding(SwizzledMethod));
-        
-        if (isSuccess) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL, originalIMP, method_getTypeEncoding(originalMethod));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod, SwizzledMethod);
-        }
+        [UINavigationController exchange:originalSEL two:SwizzledSEL class:class];
         
         
         
         // 选择器
         SEL originalSEL1 = @selector(popViewControllerAnimated:);
         SEL SwizzledSEL1 = @selector(hPopViewControllerAnimated:);
-        
-        // 方法
-        Method originalMethod1 = class_getInstanceMethod(class, originalSEL1);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod1 = class_getInstanceMethod(class, SwizzledSEL1);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP1 = method_getImplementation(originalMethod1);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP1 = method_getImplementation(SwizzledMethod1);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess1 = class_addMethod(class, originalSEL1, SwizzledIMP1, method_getTypeEncoding(SwizzledMethod1));
-        
-        if (isSuccess1) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL1, originalIMP1, method_getTypeEncoding(originalMethod1));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod1, SwizzledMethod1);
-        }
-
+        [UINavigationController exchange:originalSEL1 two:SwizzledSEL1 class:class];
     });
 }
    
         
-                  
++ (void)exchange:(SEL)one two:(SEL)two class:(Class)class{
+    // 选择器
+    SEL originalSEL = one;
+    SEL SwizzledSEL = two;
+    
+    // 方法
+    Method originalMethod = class_getInstanceMethod(class, originalSEL);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
+    Method SwizzledMethod = class_getInstanceMethod(class, SwizzledSEL);//class_getClassMethod(class, SwizzledSEL);
+    
+    // 方法的实现
+    IMP originalIMP = method_getImplementation(originalMethod);//class_getMethodImplementation(class, originalSEL);
+    IMP SwizzledIMP = method_getImplementation(SwizzledMethod);//class_getMethodImplementation(class, SwizzledSEL);
+    
+    
+    // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
+    BOOL isSuccess = class_addMethod(class, originalSEL, SwizzledIMP, method_getTypeEncoding(SwizzledMethod));
+    
+    if (isSuccess) {
+        // 初始指向目标，那么把目标的内容指向初始
+        class_replaceMethod(class, SwizzledSEL, originalIMP, method_getTypeEncoding(originalMethod));
+    }
+    else{
+        // 没有添加成功说明已经存在，就交换
+        // 注意，这里交换的是IMP 实现
+        method_exchangeImplementations(originalMethod, SwizzledMethod);
+    }
+    
+}
+
                   
 
 #pragma mark --  功能入口导航栏渐变动画

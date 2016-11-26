@@ -20,6 +20,8 @@
  *  @param scrollerName
  *  作为对比的scroller属性名字  例如 MytableView
  *
+ *  @param alphaDistance
+ *  超过这个值就不透明了
  */
 - (void) openNavigationBarAlphaAnimationWithTarget:(id)target scrollerName:(NSString*)scrollerName alphaDistance:(CGFloat)alphaDistance;
 

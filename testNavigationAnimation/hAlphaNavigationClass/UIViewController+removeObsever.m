@@ -31,169 +31,65 @@ static char *_keyContent = "_keyContent";
         // 选择器
         SEL originalSEL = @selector(viewDidDisappear:);
         SEL SwizzledSEL = @selector(hViewDidDisappear:);
-        
-        // 方法
-        Method originalMethod = class_getInstanceMethod(class, originalSEL);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod = class_getInstanceMethod(class, SwizzledSEL);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP = method_getImplementation(originalMethod);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP = method_getImplementation(SwizzledMethod);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess = class_addMethod(class, originalSEL, SwizzledIMP, method_getTypeEncoding(SwizzledMethod));
-        
-        if (isSuccess) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL, originalIMP, method_getTypeEncoding(originalMethod));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod, SwizzledMethod);
-        }
-        
-        
+        [UIViewController exchange:originalSEL two:SwizzledSEL class:class];
         
         // 选择器
         SEL originalSEL1 = @selector(viewWillAppear:);
         SEL SwizzledSEL1 = @selector(hViewWillAppear:);
+        [UIViewController exchange:originalSEL1 two:SwizzledSEL1 class:class];
         
-        // 方法
-        Method originalMethod1 = class_getInstanceMethod(class, originalSEL1);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod1 = class_getInstanceMethod(class, SwizzledSEL1);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP1 = method_getImplementation(originalMethod1);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP1 = method_getImplementation(SwizzledMethod1);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess1 = class_addMethod(class, originalSEL1, SwizzledIMP1, method_getTypeEncoding(SwizzledMethod1));
-        
-        if (isSuccess1) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL1, originalIMP1, method_getTypeEncoding(originalMethod1));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod1, SwizzledMethod1);
-        }
-
         
         // 选择器
         SEL originalSEL2 = @selector(viewDidAppear:);
         SEL SwizzledSEL2 = @selector(hViewDidAppear:);
-        
-        // 方法
-        Method originalMethod2 = class_getInstanceMethod(class, originalSEL2);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod2 = class_getInstanceMethod(class, SwizzledSEL2);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP2 = method_getImplementation(originalMethod2);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP2 = method_getImplementation(SwizzledMethod2);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess2 = class_addMethod(class, originalSEL2, SwizzledIMP2, method_getTypeEncoding(SwizzledMethod2));
-        
-        if (isSuccess2) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL2, originalIMP2, method_getTypeEncoding(originalMethod2));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod2, SwizzledMethod2);
-        }
-
-        
+        [UIViewController exchange:originalSEL2 two:SwizzledSEL2 class:class];
         
         // 选择器
         SEL originalSEL3 = @selector(dismissViewControllerAnimated:completion:);
         SEL SwizzledSEL3 = @selector(hDismissViewControllerAnimated:completion:);
-        
-        // 方法
-        Method originalMethod3 = class_getInstanceMethod(class, originalSEL3);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod3 = class_getInstanceMethod(class, SwizzledSEL3);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP3 = method_getImplementation(originalMethod3);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP3 = method_getImplementation(SwizzledMethod3);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess3 = class_addMethod(class, originalSEL3, SwizzledIMP3, method_getTypeEncoding(SwizzledMethod3));
-        
-        if (isSuccess3) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL3, originalIMP3, method_getTypeEncoding(originalMethod3));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod3, SwizzledMethod3);
-        }
-
-        
+        [UIViewController exchange:originalSEL3 two:SwizzledSEL3 class:class];
         
         // 选择器
         SEL originalSEL4 = @selector(presentViewController:animated:completion:);
         SEL SwizzledSEL4 = @selector(hPresentViewController:animated:completion:);
-        
-        // 方法
-        Method originalMethod4 = class_getInstanceMethod(class, originalSEL4);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod4 = class_getInstanceMethod(class, SwizzledSEL4);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP4 = method_getImplementation(originalMethod4);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP4 = method_getImplementation(SwizzledMethod4);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess4 = class_addMethod(class, originalSEL4, SwizzledIMP4, method_getTypeEncoding(SwizzledMethod4));
-        
-        if (isSuccess4) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL4, originalIMP4, method_getTypeEncoding(originalMethod4));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod4, SwizzledMethod4);
-        }
-
+        [UIViewController exchange:originalSEL4 two:SwizzledSEL4 class:class];
         
         // 选择器
         SEL originalSEL5 = @selector(viewWillDisappear:);
         SEL SwizzledSEL5 = @selector(hViewWillDisappear:);
-        
-        // 方法
-        Method originalMethod5 = class_getInstanceMethod(class, originalSEL5);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
-        Method SwizzledMethod5 = class_getInstanceMethod(class, SwizzledSEL5);//class_getClassMethod(class, SwizzledSEL);
-        
-        // 方法的实现
-        IMP originalIMP5 = method_getImplementation(originalMethod5);//class_getMethodImplementation(class, originalSEL);
-        IMP SwizzledIMP5 = method_getImplementation(SwizzledMethod5);//class_getMethodImplementation(class, SwizzledSEL);
-        
-        
-        // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
-        BOOL isSuccess5 = class_addMethod(class, originalSEL5, SwizzledIMP5, method_getTypeEncoding(SwizzledMethod5));
-        
-        if (isSuccess5) {
-            // 初始指向目标，那么把目标的内容指向初始
-            class_replaceMethod(class, SwizzledSEL5, originalIMP5, method_getTypeEncoding(originalMethod5));
-        }
-        else{
-            // 没有添加成功说明已经存在，就交换
-            // 注意，这里交换的是IMP 实现
-            method_exchangeImplementations(originalMethod5, SwizzledMethod5);
-        }
+        [UIViewController exchange:originalSEL5 two:SwizzledSEL5 class:class];
 
         
     });
+}
+
++ (void)exchange:(SEL)one two:(SEL)two class:(Class)class{
+    // 选择器
+    SEL originalSEL = one;
+    SEL SwizzledSEL = two;
+    
+    // 方法
+    Method originalMethod = class_getInstanceMethod(class, originalSEL);//class_getClassMethod(class, originalSEL);备注的是获取静态方法
+    Method SwizzledMethod = class_getInstanceMethod(class, SwizzledSEL);//class_getClassMethod(class, SwizzledSEL);
+    
+    // 方法的实现
+    IMP originalIMP = method_getImplementation(originalMethod);//class_getMethodImplementation(class, originalSEL);
+    IMP SwizzledIMP = method_getImplementation(SwizzledMethod);//class_getMethodImplementation(class, SwizzledSEL);
+    
+    
+    // 是否添加成功方法:添加了初始方法，实现内容指向目标方法体
+    BOOL isSuccess = class_addMethod(class, originalSEL, SwizzledIMP, method_getTypeEncoding(SwizzledMethod));
+    
+    if (isSuccess) {
+        // 初始指向目标，那么把目标的内容指向初始
+        class_replaceMethod(class, SwizzledSEL, originalIMP, method_getTypeEncoding(originalMethod));
+    }
+    else{
+        // 没有添加成功说明已经存在，就交换
+        // 注意，这里交换的是IMP 实现
+        method_exchangeImplementations(originalMethod, SwizzledMethod);
+    }
+
 }
 
 - (void)hViewWillDisappear:(BOOL)animated{
