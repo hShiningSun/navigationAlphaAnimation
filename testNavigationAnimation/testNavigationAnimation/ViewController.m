@@ -32,25 +32,20 @@
     
     self.testTableView.delegate = self;
     self.testTableView.dataSource = self;
-    
-   // [self.testTableView reloadData];
+
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //开启渐变效果
     [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"testTableView" alphaDistance:50.0];
 }
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (IBAction)clickNext:(id)sender {
-    nextViewController *vc = [[nextViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
