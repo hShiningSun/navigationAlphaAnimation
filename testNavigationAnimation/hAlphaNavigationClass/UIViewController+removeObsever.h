@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <objc/runtime.h>
 typedef void(^viewDidDisApperBlock)();
 typedef void(^viewWillApperBlock)();
 typedef void(^viewDidApperBlock)();
