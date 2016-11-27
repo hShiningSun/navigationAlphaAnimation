@@ -22,6 +22,9 @@ static char *_alphaString  = "_alphaString";
 static char *_dismisType = "_dismisType";
 static char *_open = "_open";
 static char *_keyContent = "_keyContent";
+static char *_isChangeStatus = "_isChangeStatus";
+static char *_isChangeTitle = "_isChangeTitle";
+static char *_savetitle = "_savetitle";
 
 + (void)load{
     static dispatch_once_t onceToken;
@@ -58,7 +61,7 @@ static char *_keyContent = "_keyContent";
         SEL originalSEL5 = @selector(viewWillDisappear:);
         SEL SwizzledSEL5 = @selector(hViewWillDisappear:);
         [UIViewController exchange:originalSEL5 two:SwizzledSEL5 class:class];
-
+        
         
     });
 }
@@ -89,7 +92,7 @@ static char *_keyContent = "_keyContent";
         // 注意，这里交换的是IMP 实现
         method_exchangeImplementations(originalMethod, SwizzledMethod);
     }
-
+    
 }
 
 - (void)hViewWillDisappear:(BOOL)animated{
@@ -133,7 +136,7 @@ static char *_keyContent = "_keyContent";
         self.viewDidDisApperBlock = nil;
     }
     [self hViewDidDisappear:animated];
-
+    
 }
 
 
@@ -150,7 +153,7 @@ static char *_keyContent = "_keyContent";
 
 - (viewWillApperBlock)viewWillApperBlock{
     return  objc_getAssociatedObject(self, _viewWillApperBlock);
-
+    
 }
 
 - (void)setViewWillApperBlock:(viewWillApperBlock)viewWillApperBlock{
@@ -210,5 +213,27 @@ static char *_keyContent = "_keyContent";
 }
 - (void)setKeyContent:(NSString *)keyContent{
     objc_setAssociatedObject(self, _keyContent, keyContent, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString*)isChangeStatus{
+    return objc_getAssociatedObject(self, _isChangeStatus);
+}
+- (void)setIsChangeStatus:(NSString*)isChangeStatus{
+    objc_setAssociatedObject(self, _isChangeStatus, isChangeStatus, OBJC_ASSOCIATION_RETAIN_NONATOMIC);;
+}
+
+- (NSString*)isChangeTitle{
+    return objc_getAssociatedObject(self, _isChangeTitle);
+}
+
+- (void)setIsChangeTitle:(NSString*)isChangeTitle{
+    objc_setAssociatedObject(self, _isChangeTitle, isChangeTitle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)savetitle{
+    return objc_getAssociatedObject(self, _savetitle);
+}
+- (void)setSavetitle:(NSString *)savetitle{
+    objc_setAssociatedObject(self, _savetitle, savetitle, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 @end

@@ -40,7 +40,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //开启渐变效果
-    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"testTableView" alphaDistance:50.0];
+    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"testTableView" isChangeStatus:YES isChangeTitle:YES alphaDistance:100];
 }
 
 

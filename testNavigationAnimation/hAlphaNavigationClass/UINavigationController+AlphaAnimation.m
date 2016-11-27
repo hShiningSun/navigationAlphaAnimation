@@ -37,8 +37,8 @@ static char * _userVCArray = "_userVCArray";
         [UINavigationController exchange:originalSEL1 two:SwizzledSEL1 class:class];
     });
 }
-   
-        
+
+
 + (void)exchange:(SEL)one two:(SEL)two class:(Class)class{
     // 选择器
     SEL originalSEL = one;
@@ -68,22 +68,28 @@ static char * _userVCArray = "_userVCArray";
     
 }
 
-                  
+#pragma mark- 检查传入的状态
+- (void)checkChangeStatus:(BOOL)isChangeStatus isChangeTitle:(BOOL)isChangeTitle vc:(UIViewController *)vc{
+    if (isChangeTitle) {
+        vc.isChangeTitle = @"openChange";
+        vc.savetitle = vc.title;
+        vc.title = @"";
+    }
+    else{
+        vc.isChangeTitle = nil;
+    }
+    
+    
+    if (isChangeStatus) {
+        vc.isChangeStatus = @"openChange";
+    }
+    else{
+        vc.isChangeStatus = nil;
+    }
+}
 
 #pragma mark --  功能入口导航栏渐变动画
-/**
- *  一个方法开启导航渐变效果
- *
- *  @param target
- *  需要实现的ViewController  例如在需要的vc  填self
- *
- *  @param scrollerName
- *  作为对比的scroller属性名字  例如 @"MytableView"
- *
- *  @param alphaDistance
- *  超过这个距离就不透明了
- */
-- (void) openNavigationBarAlphaAnimationWithTarget:(id)target scrollerName:(NSString*)scrollerName alphaDistance:(CGFloat)alphaDistance{
+- (void) openNavigationBarAlphaAnimationWithTarget:(id)target scrollerName:(NSString*)scrollerName isChangeStatus:(BOOL)isChangeStatus isChangeTitle:(BOOL)isChangeTitle alphaDistance:(CGFloat)alphaDistance{
     
     UIViewController *currentViewControl = (UIViewController *)target;
     UIScrollView *currentScroller = (UIScrollView *)[target valueForKeyPath:scrollerName];
@@ -94,10 +100,15 @@ static char * _userVCArray = "_userVCArray";
     [self checkVCadd:currentViewControl];
     //添加scroll
     [self checkSCROLLadd:currentScroller];
- 
+
+    
     
     int index = [self getVcIndex:currentViewControl];
     UIViewController * currentVC = (UIViewController*)self.userVCArray[index];
+    
+    [self checkChangeStatus:isChangeStatus isChangeTitle:isChangeTitle vc:currentViewControl];
+    
+    [self checkAlphaNum:[currentViewControl.alphaString floatValue] vc:currentViewControl];
     
     if (currentVC.alphaString) {
         [self hGetAlphaView].alpha = [currentVC.alphaString floatValue];
@@ -111,15 +122,22 @@ static char * _userVCArray = "_userVCArray";
     
     // 注册
     [self.scrollArray[index] addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:(__bridge void * _Nullable)(currentVC.keyContent)];
-
+    
     //移除
     __weak typeof(self) weak_self = self;
-   
+    
     currentVC.viewDidDisApperBlock = ^{
         NSUInteger index = [weak_self.userVCArray count] - 2;
         index = [weak_self.userVCArray count] == 1 ? 0 : index;
         UIViewController * vc = [weak_self.userVCArray objectAtIndex:index];//-1最后一个，-2倒数第二个
         vc.open = nil;
+        if ([vc.alphaString floatValue]>=1 && vc.isChangeStatus) {
+            [weak_self changeStatus];
+        }
+        if (vc.isChangeTitle) {
+            vc.title = vc.savetitle;
+        }
+        
         //NSLog(@"\n%@---走了====%.2f",vc.title,[vc.alphaString floatValue]);
         [[weak_self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(vc.keyContent)];
         
@@ -128,7 +146,7 @@ static char * _userVCArray = "_userVCArray";
             [weak_self.scrollArray removeObjectAtIndex:index];
         }
     };
-
+    
     [self firstLoadAnimation:currentViewControl];
     
     self.alphaDistance = [NSString stringWithFormat:@"%f",alphaDistance];
@@ -136,7 +154,7 @@ static char * _userVCArray = "_userVCArray";
 
 #pragma mark --  第一次加载动画设置透明
 - (void)firstLoadAnimation:(UIViewController*)currentViewControl{
-
+    
     __weak typeof(self) weak_self = self;
     currentViewControl.viewDidApperBlock = ^{
         UIView *alphaView;
@@ -169,7 +187,7 @@ static char * _userVCArray = "_userVCArray";
     currentViewControl.viewWillDisApperBlock = ^{
         vc.open = nil;
     };
-
+    
 }
 
 #pragma mark - KVO事件
@@ -197,22 +215,65 @@ static char * _userVCArray = "_userVCArray";
             if ( currentVC.open&&[currentVC.open isEqualToString:@"open"]) {
                 //滑动的距离
                 float spaceY = point.y - originalY;
+                
+                float alphaNum =  1.0/alphaDistance * spaceY;
+                
+                [self checkAlphaNum:alphaNum vc:currentVC];
+                
                 //渐变距离内渐变
-                alphaView.alpha = 1.0/alphaDistance * spaceY;
+                alphaView.alpha =  alphaNum;
                 //记录 alpha值
                 //有才设置，没有说明是第一次进来，第一次进来先去firstLoadAnimation 报道
-                currentVC.alphaString = [NSString stringWithFormat:@"%.2f",1.0/alphaDistance * spaceY];
+                currentVC.alphaString = [NSString stringWithFormat:@"%.2f",alphaNum];
                 
                 //NSLog(@"\n%@---在变化====%.2f",currentVC.title,[currentVC.alphaString floatValue]);
             }
             else{
                 if (currentVC.alphaString) {
-                   alphaView.alpha = [currentVC.alphaString floatValue];
+                    alphaView.alpha = [currentVC.alphaString floatValue];
                 }
             }
         }
     }
 }
+#pragma mark - 当alpha大于1
+- (void)checkAlphaNum:(float)alphaNumber vc:(UIViewController*)vc{
+    if (alphaNumber>=1) {
+        
+        if (vc.isChangeTitle) {
+            vc.title = vc.savetitle;
+        }
+        
+        if (vc.isChangeStatus && [vc.isChangeStatus  isEqualToString:@"openChange"]) {
+            vc.isChangeStatus = @"closeChange";
+            [self changeStatus];
+        }
+    }
+    else{
+        
+        if (vc.isChangeTitle) {
+            vc.title = @"";
+        }
+        
+        if (vc.isChangeStatus &&[vc.isChangeStatus isEqualToString:@"closeChange"]) {
+            vc.isChangeStatus = @"openChange";
+            [self changeStatus];
+        }
+    }
+}
+
+#pragma mark - 改变状态栏
+- (void) changeStatus{
+  UIStatusBarStyle stype = [[UIApplication sharedApplication]statusBarStyle];
+    if (stype == UIStatusBarStyleDefault) {
+        [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    else if (stype == UIStatusBarStyleLightContent){
+        [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault];
+    }
+}
+
+
 
 #pragma mark 初始化数组
 - (void) initArray{
@@ -245,7 +306,7 @@ static char * _userVCArray = "_userVCArray";
         //没有就添加
         [self.scrollArray addObject:scroll];
     }
-
+    
 }
 
 //检查栈里有没有这个vc

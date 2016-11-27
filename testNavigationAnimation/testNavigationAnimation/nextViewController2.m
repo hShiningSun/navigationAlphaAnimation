@@ -36,7 +36,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"asdfgg" alphaDistance:100.0];
+    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"asdfgg" isChangeStatus:YES isChangeTitle:NO alphaDistance:100];
+    //[self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"asdfgg" alphaDistance:100.0];
 }
 
 - (void)didReceiveMemoryWarning {

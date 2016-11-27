@@ -37,7 +37,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"tableView" alphaDistance:100];
+    [self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"tableView" isChangeStatus:NO isChangeTitle:YES alphaDistance:100];
+    //[self.navigationController openNavigationBarAlphaAnimationWithTarget:self scrollerName:@"tableView" alphaDistance:100];
 }
 
 

@@ -55,4 +55,13 @@ typedef void(^viewWillDisApperBlock)();
 
 //注册kvo的键值
 @property (nonatomic,strong)NSString *keyContent;
+
+//是否需要改变状态栏
+@property (nonatomic,strong)NSString* isChangeStatus;
+
+//是否需要显示title
+@property (nonatomic,strong)NSString* isChangeTitle;
+
+//title
+@property (nonatomic, strong) NSString *savetitle;
 @end
