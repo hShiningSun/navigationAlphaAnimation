@@ -71,6 +71,18 @@ static char * _userVCArray = "_userVCArray";
                   
 
 #pragma mark --  功能入口导航栏渐变动画
+/**
+ *  一个方法开启导航渐变效果
+ *
+ *  @param target
+ *  需要实现的ViewController  例如在需要的vc  填self
+ *
+ *  @param scrollerName
+ *  作为对比的scroller属性名字  例如 @"MytableView"
+ *
+ *  @param alphaDistance
+ *  超过这个距离就不透明了
+ */
 - (void) openNavigationBarAlphaAnimationWithTarget:(id)target scrollerName:(NSString*)scrollerName alphaDistance:(CGFloat)alphaDistance{
     
     UIViewController *currentViewControl = (UIViewController *)target;
