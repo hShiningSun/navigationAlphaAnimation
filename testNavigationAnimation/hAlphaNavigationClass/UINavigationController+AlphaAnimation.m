@@ -105,7 +105,7 @@ static char * _userVCArray = "_userVCArray";
    
     currentVC.viewDidDisApperBlock = ^{
         NSUInteger index = [weak_self.userVCArray count] - 2;
-        index = [weak_self.userVCArray count] == 0 ? 0 : index;
+        index = [weak_self.userVCArray count] == 1 ? 0 : index;
         UIViewController * vc = [weak_self.userVCArray objectAtIndex:index];//-1最后一个，-2倒数第二个
         vc.open = nil;
         //NSLog(@"\n%@---走了====%.2f",vc.title,[vc.alphaString floatValue]);

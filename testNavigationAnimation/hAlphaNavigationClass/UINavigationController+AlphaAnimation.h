@@ -18,7 +18,7 @@
  *  需要实现的ViewController  例如在需要的vc  填self
  *
  *  @param scrollerName
- *  作为对比的scroller属性名字  例如 MytableView
+ *  作为对比的scroller属性名字  例如 @"MytableView"
  *
  *  @param alphaDistance
  *  超过这个值就不透明了

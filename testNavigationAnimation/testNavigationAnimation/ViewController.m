@@ -22,6 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //使用方式 导航继承BaseNavigationController
+    //导入头文件navigationAnimation.h
+    //viewWillAppear 里面一个方法开启就可以了具体看下面，
+    
     self.title = @"往上滑动试试吧";
     
     //设置背景方便观察
