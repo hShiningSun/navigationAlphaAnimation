@@ -178,7 +178,7 @@ static char * _userVCArray = "_userVCArray";
         
         disShowViewController.open = nil;
         
-        [[self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(disShowViewController.keyContent)];//先移除对象注册，再删除对象，不然栈顺序错了
+        [[weak_self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(disShowViewController.keyContent)];//先移除对象注册，再删除对象，不然栈顺序错了
         
         
         if ([disShowViewController.alphaString floatValue]>=1 && disShowViewController.isChangeStatus) {
