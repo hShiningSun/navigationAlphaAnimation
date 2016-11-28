@@ -96,98 +96,105 @@ static char * _userVCArray = "_userVCArray";
     
     if (!currentScroller) return;
     [self initArray];
-    //添加vc
+    //添加vc改变栈的顺序
     [self checkVCadd:currentViewControl];
-    //添加scroll
+    //添加scroll改变栈的顺序
     [self checkSCROLLadd:currentScroller];
-
     
     
+    //栈中的位置
     int index = [self getVcIndex:currentViewControl];
     UIViewController * currentVC = (UIViewController*)self.userVCArray[index];
     
+    //检查是否改变状态
     [self checkChangeStatus:isChangeStatus isChangeTitle:isChangeTitle vc:currentViewControl];
-    
+    //检查alpha值  如果以前是push走的，回来接着处理alpha值
     [self checkAlphaNum:[currentViewControl.alphaString floatValue] vc:currentViewControl];
     
+    //更新此页的alpha值，如果有并且push走的
     if (currentVC.alphaString) {
         [self hGetAlphaView].alpha = [currentVC.alphaString floatValue];
     }
     
-    
-    //获取注册kvo的关键key
-    if (!currentVC.keyContent) {
-        currentVC.keyContent = [self getCurrentTime];
-    }
-    
-    // 注册
-    [self.scrollArray[index] addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:(__bridge void * _Nullable)(currentVC.keyContent)];
-    
-    //移除
-    __weak typeof(self) weak_self = self;
-    
-    currentVC.viewDidDisApperBlock = ^{
-        NSUInteger index = [weak_self.userVCArray count] - 2;
-        index = [weak_self.userVCArray count] == 1 ? 0 : index;
-        UIViewController * vc = [weak_self.userVCArray objectAtIndex:index];//-1最后一个，-2倒数第二个
-        vc.open = nil;
-        if ([vc.alphaString floatValue]>=1 && vc.isChangeStatus) {
-            [weak_self changeStatus];
-        }
-        if (vc.isChangeTitle) {
-            vc.title = vc.savetitle;
-        }
-        
-        //NSLog(@"\n%@---走了====%.2f",vc.title,[vc.alphaString floatValue]);
-        [[weak_self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(vc.keyContent)];
-        
-        if ([vc.dismisType isEqualToString:@"pop"]) {
-            [weak_self.userVCArray removeObjectAtIndex:index];
-            [weak_self.scrollArray removeObjectAtIndex:index];
-        }
-    };
-    
-    [self firstLoadAnimation:currentViewControl];
+    //注册此页的生命周期回调
+    [self registeredLifeCycleBlockWithController:currentVC];
     
     self.alphaDistance = [NSString stringWithFormat:@"%f",alphaDistance];
 }
 
-#pragma mark --  第一次加载动画设置透明
-- (void)firstLoadAnimation:(UIViewController*)currentViewControl{
+#pragma mark --  生命周期回调
+- (void)registeredLifeCycleBlockWithController:(UIViewController*)currentViewControl
+{
     
     __weak typeof(self) weak_self = self;
+    
+    
+    //就是从viewwillAppear启动的
+    int index = [self getVcIndex:currentViewControl];
+    if (currentViewControl.keyContent == nil) {
+        currentViewControl.keyContent = [self getCurrentTime];
+    }
+    [self.scrollArray[index] addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:(__bridge void * _Nullable)(currentViewControl.keyContent)];
+    
+    
+    
+    
+    //已经显示
     currentViewControl.viewDidApperBlock = ^{
-        UIView *alphaView;
-        //取到渐变view
-        if([weak_self isKindOfClass:[BaseNavigationController class]]){
-            alphaView = [weak_self valueForKeyPath:@"alphaView"];
-        }
-        
-        //没有渐变view 失败
-        if (!alphaView) {
-            return;
-        }
+        UIView *alphaView = [weak_self hGetAlphaView];
         alphaView.alpha = 0;
         
         //如果以前就有alpha值
-        UIViewController *vc = (UIViewController*)[weak_self.userVCArray lastObject];
-        if (vc.alphaString) {
-            //NSLog(@"\n%@---回来了====%.2f",vc.title,[vc.alphaString floatValue]);
-            alphaView.alpha = [vc.alphaString floatValue];
+        UIViewController *didShowViewController = (UIViewController*)[weak_self.userVCArray lastObject];
+        if (didShowViewController.alphaString) {
+            alphaView.alpha = [didShowViewController.alphaString floatValue];
         }
         else{
             //新人报道
-            vc.alphaString = @"0";
+            didShowViewController.alphaString = @"0";
         }
         
-        vc.open = @"open";
+        didShowViewController.open = @"open";
     };
     
-    __block UIViewController*vc = currentViewControl;
+    
+    //将要消失
+    __block UIViewController*willDisShowViewController = currentViewControl;
     currentViewControl.viewWillDisApperBlock = ^{
-        vc.open = nil;
+        willDisShowViewController.open = nil;
+        if (willDisShowViewController.isChangeTitle) {
+            willDisShowViewController.title = willDisShowViewController.savetitle;
+        }
     };
     
+    
+    
+    //已经消失
+    currentViewControl.viewDidDisApperBlock = ^{
+        NSUInteger index = [weak_self.userVCArray count] - 2;
+        index = [weak_self.userVCArray count] == 1 ? 0 : index;
+        
+        UIViewController * disShowViewController = [weak_self.userVCArray objectAtIndex:index];
+        
+        disShowViewController.open = nil;
+        
+        [[self.scrollArray objectAtIndex:index] removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void * _Nullable)(disShowViewController.keyContent)];//先移除对象注册，再删除对象，不然栈顺序错了
+        
+        
+        if ([disShowViewController.alphaString floatValue]>=1 && disShowViewController.isChangeStatus) {
+            [weak_self changeStatus];
+        }
+        
+        if (disShowViewController.isChangeTitle) {
+            disShowViewController.title = disShowViewController.savetitle;
+        }
+        
+        if ([disShowViewController.dismisType isEqualToString:@"pop"]) {
+            [weak_self.userVCArray removeObjectAtIndex:index];
+            [weak_self.scrollArray removeObjectAtIndex:index];
+        }
+    };
+
 }
 
 #pragma mark - KVO事件
@@ -222,11 +229,8 @@ static char * _userVCArray = "_userVCArray";
                 
                 //渐变距离内渐变
                 alphaView.alpha =  alphaNum;
-                //记录 alpha值
-                //有才设置，没有说明是第一次进来，第一次进来先去firstLoadAnimation 报道
-                currentVC.alphaString = [NSString stringWithFormat:@"%.2f",alphaNum];
                 
-                //NSLog(@"\n%@---在变化====%.2f",currentVC.title,[currentVC.alphaString floatValue]);
+                currentVC.alphaString = [NSString stringWithFormat:@"%.2f",alphaNum];
             }
             else{
                 if (currentVC.alphaString) {
@@ -236,7 +240,7 @@ static char * _userVCArray = "_userVCArray";
         }
     }
 }
-#pragma mark - 当alpha大于1
+#pragma mark - 根据alpha值判断是否应该改变状态、标题
 - (void)checkAlphaNum:(float)alphaNumber vc:(UIViewController*)vc{
     if (alphaNumber>=1) {
         
@@ -264,7 +268,7 @@ static char * _userVCArray = "_userVCArray";
 
 #pragma mark - 改变状态栏
 - (void) changeStatus{
-  UIStatusBarStyle stype = [[UIApplication sharedApplication]statusBarStyle];
+    UIStatusBarStyle stype = [[UIApplication sharedApplication]statusBarStyle];
     if (stype == UIStatusBarStyleDefault) {
         [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
     }
@@ -306,7 +310,6 @@ static char * _userVCArray = "_userVCArray";
         //没有就添加
         [self.scrollArray addObject:scroll];
     }
-    
 }
 
 //检查栈里有没有这个vc
